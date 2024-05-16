@@ -1,0 +1,9 @@
+Just right-click the "RunIntune" batch file.
+Then click "Run as Administrator"
+
+The batch file will copy the powershell script to `C:\`, and then starts it.
+That powershell script handles installing and running the Intune commands.
+
+when the script finishes, it will automatically launch the "System Reset" menu for you.
+If an error occurrs, the script will stop, and wait for you to press 'Y' to continue.
+If you accidentally forget to run-as-administrator, the script will warn you and stop.
