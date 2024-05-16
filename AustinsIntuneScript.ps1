@@ -9,7 +9,7 @@ $ErrorActionPreference = "Inquire"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
 Write-Host "Adjusting permission levels... " -NoNewLine
 Write-Host "Completed!"
-Write-Host "Beginning script execution. Cross 'yer' fingers."
+Write-Host "Beginning script execution. Cross 'yer fingers."
 Write-Host
 
 
