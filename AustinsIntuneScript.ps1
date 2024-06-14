@@ -2,6 +2,16 @@
 $ErrorActionPreference = "Inquire"
 
 
+    # First we print out the MAC-address, so that it can be entered in Talon.
+    # `select description, macaddress` says which information we want to keep.
+    # `where macaddress -ne $null` filters out any device without a MAC-address.
+Write-Host "So you can enter them in Talon, here's the computer's MAC addresses:"
+Write-Host "(Hint: you probabably want the 'Ethernet' one)"
+Get-WmiObject win32_networkadapterconfiguration | select description, macaddress | where macaddress -ne $null
+Write-Host
+Write-Host
+
+
     # Normally Powershell won't let you run remote scripts for security purposes.
     # This command tells powershell to allow this behavior.
     # `-Scope Process` limits this change to the current process (for safety).
