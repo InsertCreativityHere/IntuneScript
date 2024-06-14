@@ -1,0 +1,51 @@
+    # Tell Powershell to stop and wait for user confirmation if an error occurrs.
+$ErrorActionPreference = "Inquire"
+
+    # First, we get the local admin account, and make sure that it exists.
+Write-Host "Checking for account with name 'Administrator... '" -NoNewLine
+$AdminUser = Get-LocalUser -Name "Administrator"
+Write-Host "Success!"
+Write-Host
+
+    # Now that we know the account exists, we ask what password we should use here.
+Write-Host "What password should we use for this account?"
+Write-Host "I'm too lazy to write the code to ask you twice and check that you typed it correctly..."
+Write-Host "So you'd better be careful and make sure you type it correctly the first time!"
+$Password = Read-Host "Enter password: "-AsSecureString
+Write-Host
+
+Write-Host "========================================================="
+Write-Host "==========   Beginning account configuration   =========="
+Write-Host "========================================================="
+
+    # First, Enable the account.
+Write-Host "Enabling account... " -NoNewLine
+Enable-LocalUser $AdminUser
+Write-Host "ok"
+
+    # Then we configure some other things on the account, like the password.
+    # `-Password $Password` sets the password to whatever is stored in the `$Password` variable.
+    # `-AccountNeverExpires` ensures that the account will never expire.
+    # `-PasswordNeverExpires` ensures that the password we supplied also never expires.
+Write-Host "Setting account password... " -NoNewLine
+Set-LocalUser $User -Password $Password -AccountNeverExpires -PasswordNeverExpires
+Write-Host "ok"
+
+    # Finally, we rename the account to our standard 'adadmin' name.
+    # `-NewName "adadmin"` specifies what the new name should be. Go figure.
+Write-Host "Renaming account... " -NoNewLine
+Rename-LocalUser $User -NewName "adadmin"
+Write-Host "ok"
+
+Write-Host
+Write-Host "========================================================="
+Write-Host "===                     COMPLETED                     ==="
+Write-Host "========================================================="
+Write-Host
+
+    # Double-check the commands actually succeeded.
+    # We wait 2 seconds to give Windows time to synchronize it's stuff.
+Write-Host "Just double checking that everything worked..."
+Start-Sleep -Seconds 2
+
+    # TODO actually check the stuff : vP
